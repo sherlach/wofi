@@ -2,7 +2,7 @@
 Wofi is a launcher/menu program for wlroots based wayland compositors such as sway
 
 This repository has been "forked" from [scoopta's](https://hg.sr.ht/~scoopta/wofi), following the
-"archived" banner appearing on that repo. The 'base' branch shows the original state of files as 
+"archived" banner appearing on that repo. The 'original' branch shows the original state of files as 
 written by scoopta, including the original hg versioning system files.
 
 ## Dependencies
