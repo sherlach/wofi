@@ -540,7 +540,7 @@ int main(int argc, char** argv) {
 			parse_search = "true";
 			break;
 		case 'v':
-			printf(WOFI_VERSION"\n");
+			printf(VERSION"\n");
 			exit(0);
 			break;
 		case 'l':

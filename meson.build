@@ -1,6 +1,4 @@
-#project('wofi', 'c', version : '0.0.1', default_options : ['c_std=c99', 'buildtype=release', 'warning_level=2'])
-project('wofi', 'c', version : 'git', default_options : ['c_std=c99', 'buildtype=release', 'warning_level=2'])
-
+project('wofi', 'c', version : 'hg', default_options : ['c_std=c99', 'buildtype=release', 'warning_level=2'])
 cc = meson.get_compiler('c')
 
 pkgcfg = import('pkgconfig')
@@ -11,22 +9,15 @@ wayland = dependency('wayland-client')
 threads = dependency('threads')
 dl = cc.find_library('dl')
 
-git = find_program('git', native : true, required : false)
-
+hg = find_program('hg', native : true, required : false)
 
 version = meson.project_version()
-if version == 'git'
-  if not git.found()
-    warning('git is needed to create version string, placeholder will be used')
-  endif
 
-  git_commit_hash = run_command([git.path(), 'describe', '--always', '--tags']).stdout().strip()
-  git_branch = run_command([git.path(), 'rev-parse', '--abbrev-ref', 'HEAD']).stdout().strip()
-  version = '"@0@ (" __DATE__ ", branch \'@1@\')"'.format(git_commit_hash, git_branch)
-
+if hg.found()
+	version = run_command(hg, 'identify').stdout().strip()
 endif
 
-add_project_arguments('-D_GNU_SOURCE', '-DWOFI_VERSION=@0@'.format(version), language : 'c')
+add_project_arguments('-D_GNU_SOURCE', '-DVERSION="' + version + '"', language : 'c')
 add_project_link_arguments('-rdynamic', language : 'c')
 
 sources = ['src/config.c',
